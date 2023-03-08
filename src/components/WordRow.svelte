@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { checkWord } from '../utils';
 	import LetterInput from './LetterInput.svelte';
 	export let rowId: number;
 	export let rowActive: number;
@@ -31,18 +32,11 @@
 		});
 	};
 
-	const handleCheckWord = (ev: KeyboardEvent) => {
+	export const handleCheckWord = (ev: KeyboardEvent) => {
 		if (!gameHasFinish) {
 			if (letters.every((l) => l.letter !== '') && ev.key === 'Enter') {
 				rowCompleted = true;
-				letters.forEach((l, i) => {
-					if (word[i] === l.letter) {
-						l.existsOnWord = true;
-						l.onRightPos = true;
-					} else if (word.includes(l.letter)) {
-						l.existsOnWord = true;
-					}
-				});
+				checkWord(word, letters);
 				if (letters.every((l) => l.onRightPos)) {
 					gameHasFinish = true;
 					alert('You win!');

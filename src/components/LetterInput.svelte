@@ -1,10 +1,5 @@
 <script lang="ts">
-	interface Letter {
-		letter: string;
-		id: number;
-		existsOnWord: boolean;
-		onRightPos: boolean;
-	}
+	import type { Letter } from '../interfaces';
 
 	export let letterOnFocus: number;
 	export let isRowActive: boolean;
