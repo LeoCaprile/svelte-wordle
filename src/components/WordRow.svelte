@@ -4,9 +4,10 @@
 	export let rowId: number;
 	export let rowActive: number;
 	export let changeRowActive: (id: number) => void;
-	let gameHasFinish = false;
+	export let word: string;
+	export let gameHasFinish: boolean;
+	export let showConfetti: () => void;
 	let rowCompleted = false;
-	let word = 'hello';
 
 	$: letterOnFocus = rowId === rowActive ? 1 : 0;
 
@@ -32,7 +33,7 @@
 		});
 	};
 
-	export const handleCheckWord = (ev: KeyboardEvent) => {
+	export const handleCheckWord = async (ev: KeyboardEvent) => {
 		if (!gameHasFinish) {
 			if (letters.every((l) => l.letter !== '') && ev.key === 'Enter') {
 				rowCompleted = true;
@@ -40,6 +41,7 @@
 				if (letters.every((l) => l.onRightPos)) {
 					gameHasFinish = true;
 					alert('You win!');
+					await showConfetti();
 				} else {
 					changeRowActive(rowId + 1);
 				}

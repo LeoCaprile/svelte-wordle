@@ -1,15 +1,14 @@
 <script>
-
-	import Page from "./+page.svelte";
-
+	import Page from './+page.svelte';
 </script>
+
 <div>
-    <Page></Page>
+	<Page />
 </div>
 
 <style lang="scss">
-    div{
-        display: flex;
-        justify-content: center;
-    }
+	div {
+		display: flex;
+		justify-content: center;
+	}
 </style>
