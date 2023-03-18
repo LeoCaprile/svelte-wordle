@@ -3,9 +3,12 @@
 </script>
 
 <div class="app">
-	<header>Sverdle</header>
+	<header>
+		<h1>Sverdle</h1>
+	</header>
 	<Page />
 	<footer>Build by Matias Fuentes (LeoCaprile)</footer>
+	<small>open the console to know the word</small>
 </div>
 
 <style lang="scss">
@@ -22,8 +25,11 @@
 		}
 	}
 
+	small {
+		font-size: 3px;
+	}
 	header {
-		font-size: 100px;
+		font-size: 30px;
 		font-family: 'Rubik Iso', cursive;
 	}
 </style>

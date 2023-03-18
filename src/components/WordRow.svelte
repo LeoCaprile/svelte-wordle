@@ -8,6 +8,7 @@
 	export let gameHasFinish: boolean;
 	export let finishGame: () => void;
 	export let showConfetti: () => void;
+	export let lose: () => void;
 	let rowCompleted = false;
 
 	$: letterOnFocus = rowId === rowActive ? 1 : 0;
@@ -41,10 +42,14 @@
 				checkWord(word, letters);
 				if (letters.every((l) => l.onRightPos)) {
 					finishGame();
-					alert('You win!');
 					showConfetti();
+					changeRowActive(1);
 				} else {
 					changeRowActive(rowId + 1);
+					if (rowActive === 5) {
+						lose();
+						changeRowActive(1);
+					}
 				}
 			}
 		}

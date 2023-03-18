@@ -3,6 +3,7 @@
 	import randomWords from 'random-words';
 	import conffeti from 'canvas-confetti';
 	let gameHasFinish: boolean = false;
+	let playerHasLose: boolean = false;
 	let rowActive = 1;
 	let wordRows = [1, 2, 3, 4, 5];
 	let word = checkIfWordHasCorrectLength();
@@ -11,6 +12,9 @@
 		gameHasFinish = true;
 	}
 
+	function lose() {
+		playerHasLose = true;
+	}
 	function changeRowActive(id: number) {
 		rowActive = id;
 	}
@@ -34,19 +38,30 @@
 </script>
 
 <div>
-	{#if gameHasFinish}
+	{#if gameHasFinish && !playerHasLose}
+		<h1>Haz Ganado!!!</h1>
 		<button
 			on:click={() => {
 				gameHasFinish = false;
 				word = checkIfWordHasCorrectLength();
 			}}>Reintentar</button
 		>
+	{:else if playerHasLose}
+		<h1>Has Perdido!!!</h1>
+		<button
+			on:click={() => {
+				gameHasFinish = false;
+				playerHasLose = false;
+				word = checkIfWordHasCorrectLength();
+			}}>Reintentar</button
+		>
 	{/if}
 
-	{#if !gameHasFinish}
+	{#if !gameHasFinish && !playerHasLose}
 		<div>
 			{#each wordRows as rowId}
 				<WordRow
+					{lose}
 					{showConfetti}
 					{finishGame}
 					{gameHasFinish}
@@ -61,6 +76,11 @@
 </div>
 
 <style lang="scss">
+	:global(body) {
+		font-family: sans-serif;
+		margin: 0;
+		padding: 0;
+	}
 	div {
 		display: flex;
 		flex-direction: column;
