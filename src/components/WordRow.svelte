@@ -6,6 +6,7 @@
 	export let changeRowActive: (id: number) => void;
 	export let word: string;
 	export let gameHasFinish: boolean;
+	export let finishGame: () => void;
 	export let showConfetti: () => void;
 	let rowCompleted = false;
 
@@ -33,15 +34,15 @@
 		});
 	};
 
-	export const handleCheckWord = async (ev: KeyboardEvent) => {
+	export const handleCheckWord = (ev: KeyboardEvent) => {
 		if (!gameHasFinish) {
 			if (letters.every((l) => l.letter !== '') && ev.key === 'Enter') {
 				rowCompleted = true;
 				checkWord(word, letters);
 				if (letters.every((l) => l.onRightPos)) {
-					gameHasFinish = true;
+					finishGame();
 					alert('You win!');
-					await showConfetti();
+					showConfetti();
 				} else {
 					changeRowActive(rowId + 1);
 				}
